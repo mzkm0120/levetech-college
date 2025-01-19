@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="utf-8">
-    <title>Blog</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-</head>
-
-<body>
+<x-app-layout>
     <h1>Blog Name</h1>
     <a href='/posts/create'>create</a>
     <div class='posts'>
@@ -17,6 +7,7 @@
             <h2 class='title'>
                 <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
             </h2>
+            {{ Auth::user()->name }}
             <a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
             <p class='body'>{{ $post->body }}</p>
             <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
@@ -39,6 +30,13 @@
             }
         }
     </script>
-</body>
-
-</html>
+    <div>
+        @foreach($questions as $question)
+        <div>
+            <a href="https://teratail.com/questions/{{ $question['id'] }}">
+                {{ $question['title'] }}
+            </a>
+        </div>
+        @endforeach
+    </div>
+</x-app-layout>
